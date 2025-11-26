@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<title>Notificação com Som</title>
-
 <style>
-    .notification {
+    .notification-kw {
         position: fixed;
         bottom: 20px;
         left: 20px;
@@ -18,13 +12,13 @@
         align-items: center;
         gap: 12px;
         box-shadow: 0 4px 15px rgba(0,0,0,0.25);
-        animation: fadeInOut 5s ease;
+        animation: fadeInOutKw 5s ease;
         font-family: Arial, sans-serif;
-        z-index: 99999;
+        z-index: 999999;
         max-width: 90%;
     }
 
-    .notif-img {
+    .notif-img-kw {
         width: 45px;
         height: 45px;
         border-radius: 50%;
@@ -32,20 +26,20 @@
         border: 2px solid #eee;
     }
 
-    .notif-text {
+    .notif-text-kw {
         font-weight: bold;
+        line-height: 1.3;
     }
 
-    @keyframes fadeInOut {
+    @keyframes fadeInOutKw {
         0% {opacity: 0; transform: translateY(20px);}
         10% {opacity: 1; transform: translateY(0);}
         80% {opacity: 1;}
         100% {opacity: 0; transform: translateY(20px);}
     }
 
-    /* 📱 MOBILE OTIMIZADO */
     @media (max-width: 600px) {
-        .notification {
+        .notification-kw {
             bottom: 10px;
             left: 10px;
             padding: 10px 14px;
@@ -53,93 +47,78 @@
             font-size: 14px;
             gap: 10px;
         }
-
-        .notif-img {
+        .notif-img-kw {
             width: 38px;
             height: 38px;
         }
     }
 </style>
 
-</head>
-<body>
 
-<!-- 🔊 SOM DA NOTIFICAÇÃO -->
-<audio id="sound" preload="auto">
+<audio id="soundKw" preload="auto">
     <source src="https://www.myinstants.com/media/sounds/cash-register.mp3" type="audio/mpeg">
 </audio>
 
-<!-- NOTIFICAÇÃO -->
-<div id="notif" class="notification">
-    <img id="notifImg" class="notif-img" src="" alt="">
-    <div class="notif-text">
-        <span id="notifName"></span> realizou uma compra!
+<div id="notifKw" class="notification-kw">
+    <img id="notifImgKw" class="notif-img-kw" src="">
+    <div class="notif-text-kw">
+        <span id="notifNameKw"></span><br>
+        <span id="notifLocKw" style="font-weight: normal; font-size: 14px;"></span>
     </div>
 </div>
 
-
 <script>
+(function(){
 
-    // Escolhe aleatoriamente qual tipo de nome usar
-    async function gerarNomeAleatorio() {
-        const modos = ["brasil", "estrangeiro-m", "estrangeiro-f"];
+    // 🔥 Buscar nome + foto + cidade + estado
+    async function gerarPessoaKw() {
+        const modos = ["brasil", "estrangeiro"];
         const modo = modos[Math.floor(Math.random() * modos.length)];
 
-        switch(modo) {
+        // 🇧🇷 BRASIL – cidade e estado fake porém plausíveis
+        if (modo === "brasil") {
+            const nomes = ["João", "Maria", "Pedro", "Ana", "Lucas", "Carla", "Diego", "Fernanda", "Ricardo", "Paula"];
+            const sobrenomes = ["Silva", "Souza", "Mendes", "Ferreira", "Dias", "Castro", "Ribeiro", "Gomes", "Martins"];
 
-            // 🇧🇷 NOMES BRASILEIROS REAIS – API IBGE
-            case "brasil":
-                try {
-                    const req = await fetch("https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking");
-                    const data = await req.json();
-                    const lista = data[0].res;
+            const cidades = [
+                {cidade:"São Paulo", estado:"SP"},
+                {cidade:"Rio de Janeiro", estado:"RJ"},
+                {cidade:"Belo Horizonte", estado:"MG"},
+                {cidade:"Curitiba", estado:"PR"},
+                {cidade:"Salvador", estado:"BA"},
+                {cidade:"Fortaleza", estado:"CE"},
+                {cidade:"Brasília", estado:"DF"},
+                {cidade:"Recife", estado:"PE"}
+            ];
 
-                    const item = lista[Math.floor(Math.random() * lista.length)].nome;
+            const nome = nomes[Math.floor(Math.random() * nomes.length)] + " " +
+                          sobrenomes[Math.floor(Math.random() * sobrenomes.length)];
 
-                    const sobrenomes = [
-                        "Silva", "Souza", "Ferreira", "Almeida", "Mendes",
-                        "Castro", "Ribeiro", "Gomes", "Carvalho", "Dias"
-                    ];
+            const loc = cidades[Math.floor(Math.random() * cidades.length)];
 
-                    const sobrenome = sobrenomes[Math.floor(Math.random() * sobrenomes.length)];
-
-                    return { 
-                        nome: item + " " + sobrenome,
-                        foto: gerarFotoFallback()
-                    };
-
-                } catch(e) {
-                    return {
-                        nome: "Cliente Brasileiro",
-                        foto: gerarFotoFallback()
-                    };
-                }
-
-            // 🌍 NOMES ESTRANGEIROS (MASCULINO)
-            case "estrangeiro-m":
-                return await gerarRandomUser("male");
-
-            // 🌍 NOMES ESTRANGEIROS (FEMININO)
-            case "estrangeiro-f":
-                return await gerarRandomUser("female");
+            return {
+                nome,
+                foto: gerarFotoFallbackKw(),
+                cidade: loc.cidade,
+                estado: loc.estado
+            };
         }
-    }
 
-
-    // RandomUser – nomes e fotos reais
-    async function gerarRandomUser(genero) {
-        const req = await fetch(`https://randomuser.me/api/?gender=${genero}&nat=us,ca,gb,au`);
+        // 🌍 RANDOMUSER – nome + foto + cidade + estado real
+        const req = await fetch("https://randomuser.me/api/?nat=us,ca,gb,au");
         const data = await req.json();
         const u = data.results[0];
 
         return {
             nome: `${u.name.first} ${u.name.last}`,
-            foto: u.picture.medium
+            foto: u.picture.medium,
+            cidade: u.location.city,
+            estado: u.location.state
         };
     }
 
     // Foto fallback
-    function gerarFotoFallback() {
+    function gerarFotoFallbackKw() {
         const fotos = [
             "https://randomuser.me/api/portraits/men/11.jpg",
             "https://randomuser.me/api/portraits/men/43.jpg",
@@ -151,38 +130,45 @@
     }
 
 
-    // MOSTRAR NOTIFICAÇÃO
-    async function mostrarNotificacao() {
+    // ⏳ Mostra *1* notificação
+    async function mostrarUmaNotificacaoKw() {
         try {
-            const { nome, foto } = await gerarNomeAleatorio();
+            const pessoa = await gerarPessoaKw();
 
-            document.getElementById("notifName").innerText = nome;
-            document.getElementById("notifImg").src = foto;
+            document.getElementById("notifNameKw").innerText = pessoa.nome + " realizou uma compra!";
+            document.getElementById("notifLocKw").innerText = pessoa.cidade + " - " + pessoa.estado;
+            document.getElementById("notifImgKw").src = pessoa.foto;
 
-            const caixa = document.getElementById("notif");
+            const caixa = document.getElementById("notifKw");
             caixa.style.display = "flex";
 
-            // 🔊 SOM
-            const audio = document.getElementById("sound");
+            // som
+            const audio = document.getElementById("soundKw");
             audio.currentTime = 0;
-            audio.play().catch(() => {});
+            audio.play().catch(()=>{});
 
             setTimeout(() => {
                 caixa.style.display = "none";
-            }, 5005);
+            }, 5000);
 
         } catch(e) {
             console.log("Erro:", e);
         }
     }
 
-    // Primeira notificação ao carregar
-    mostrarNotificacao();
+    // ⚡ Mostra 5 notificações seguidas
+    async function exibirSequenciaKw() {
+        for (let i = 0; i < 5; i++) {
+            await mostrarUmaNotificacaoKw();
+            await new Promise(r => setTimeout(r, 5200)); // espera a notificação morrer
+        }
+    }
 
-    // A cada 1 minuto
-    setInterval(mostrarNotificacao, 60000);
+    // Primeira sequência 3 segundos após carregar
+    setTimeout(exibirSequenciaKw, 3000);
 
+    // Repete sequência a cada 1 minuto
+    setInterval(exibirSequenciaKw, 60000);
+
+})();
 </script>
-
-</body>
-</html>
