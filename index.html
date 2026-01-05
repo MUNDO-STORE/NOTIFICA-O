@@ -6,7 +6,6 @@
     <title>Mundo DJ Pack Profissional - Sua Biblioteca Musical Completa</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Reset e configurações gerais */
         * {
             margin: 0;
             padding: 0;
@@ -27,7 +26,6 @@
             padding: 0 20px;
         }
         
-        /* Estilos do cabeçalho */
         header {
             padding: 30px 0;
             text-align: center;
@@ -65,7 +63,6 @@
             margin-top: 5px;
         }
         
-        /* Estilos da seção principal */
         .hero {
             padding: 60px 0;
             text-align: center;
@@ -102,7 +99,6 @@
             font-weight: bold;
         }
         
-        /* Estilos dos botões */
         .buttons {
             display: flex;
             justify-content: center;
@@ -152,7 +148,6 @@
             font-size: 1.5rem;
         }
         
-        /* Estilos da descrição */
         .description {
             background: rgba(0, 0, 0, 0.5);
             padding: 40px;
@@ -193,7 +188,6 @@
             margin-bottom: 15px;
         }
         
-        /* Estilos do vídeo */
         .video-section {
             text-align: center;
             padding: 40px 0;
@@ -211,7 +205,7 @@
         
         .video-wrapper {
             position: relative;
-            padding-bottom: 56.25%; /* Proporção 16:9 */
+            padding-bottom: 56.25%;
             height: 0;
         }
         
@@ -223,7 +217,6 @@
             height: 100%;
         }
         
-        /* Estilos das garantias */
         .guarantees {
             display: flex;
             justify-content: space-around;
@@ -246,7 +239,6 @@
             margin-bottom: 15px;
         }
         
-        /* Estilos do rodapé */
         footer {
             background: rgba(0, 0, 0, 0.8);
             padding: 30px 0;
@@ -268,7 +260,6 @@
             font-size: 0.9rem;
         }
         
-        /* Responsividade */
         @media (max-width: 768px) {
             .logo h1 {
                 font-size: 1.8rem;
@@ -316,7 +307,6 @@
             }
         }
         
-        /* Animações adicionais */
         @keyframes float {
             0% { transform: translateY(0px); }
             50% { transform: translateY(-10px); }
@@ -327,7 +317,6 @@
             animation: float 3s ease-in-out infinite;
         }
         
-        /* Estilos para a seção de oferta final */
         .final-offer {
             text-align: center;
             margin: 50px 0;
@@ -337,7 +326,6 @@
             border: 2px solid #FF6B00;
         }
         
-        /* Controles do vídeo */
         .video-controls {
             margin-top: 15px;
             display: flex;
@@ -360,7 +348,6 @@
             background: #FF4500;
         }
         
-        /* Estilo para o item de funk com destaque */
         .funk-item {
             border-left: 5px solid #FF00FF !important;
             background: rgba(255, 0, 255, 0.1) !important;
@@ -376,12 +363,9 @@
     </style>
 </head>
 <body>
-    <!-- Pixel do Facebook (simulado) -->
     <script>
-        // Simulação do pixel do Facebook para fins de exemplo
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Pixel do Facebook carregado: 25652670291043537');
-            // Aqui iria o código real do pixel do Facebook
         });
     </script>
     
@@ -425,7 +409,6 @@
             <h3>Veja o que você vai receber:</h3>
             <div class="video-container">
                 <div class="video-wrapper">
-                    <!-- Vídeo com autoplay e som ativado -->
                     <iframe 
                         id="videoPlayer"
                         src="https://www.youtube.com/embed/KeLaP35KBX4?autoplay=1&mute=0&enablejsapi=1&playsinline=1" 
@@ -438,7 +421,6 @@
             </div>
             <p style="margin-top: 15px; font-style: italic;">Assista ao vídeo e entenda a dimensão deste pack exclusivo!</p>
             
-            <!-- Controles do vídeo -->
             <div class="video-controls">
                 <button class="video-btn" onclick="playVideo()">
                     <i class="fas fa-play"></i> Play
@@ -464,7 +446,7 @@
                 
                 <div class="feature-item">
                     <i class="fas fa-volume-up"></i>
-                    <h4>+2TB Efeitos Sonoros (SFX)</h4>
+                    <h4>+2TB Efeitos Sonoros</h4>
                     <p>Transições, risadas, aplausos, sirenes e milhares de efeitos para suas mixagens.</p>
                 </div>
                 
@@ -533,7 +515,6 @@
             </div>
         </div>
         
-        <!-- Seção final de oferta -->
         <div class="final-offer">
             <h3 style="font-size: 2rem; margin-bottom: 20px; color: #FFD700;">NÃO PERCA ESTA OPORTUNIDADE!</h3>
             <p style="font-size: 1.2rem; margin-bottom: 30px;">Por apenas <span class="highlight">R$ 50,00</span> você tem acesso completo!</p>
@@ -578,7 +559,6 @@
     </footer>
     
     <script>
-        // Animações para os botões
         document.addEventListener('DOMContentLoaded', function() {
             const buttons = document.querySelectorAll('.btn');
             
@@ -592,24 +572,19 @@
                 });
             });
             
-            // Contador de vendas (simulado para motivação)
             const salesCount = document.createElement('div');
             salesCount.innerHTML = '<p style="text-align:center; background: rgba(255,107,0,0.2); padding: 10px; border-radius: 10px; margin: 20px 0;"><i class="fas fa-bolt"></i> <strong>Oferta disponível por tempo limitado!</strong> Já foram vendidos mais de <span style="color:#FFD700">500 packs</span> esta semana!</p>';
             document.querySelector('.hero').appendChild(salesCount);
             
-            // Simulação de rastreamento de conversão
             const trackConversion = () => {
                 console.log('Conversão registrada no pixel: 25652670291043537');
-                // Aqui iria o código real de rastreamento de conversão
             };
             
-            // Adicionar rastreamento aos botões de compra
             const buyButtons = document.querySelectorAll('a[href*="4br.me"], a[href*="wa.link"]');
             buyButtons.forEach(button => {
                 button.addEventListener('click', trackConversion);
             });
             
-            // Timer para criar urgência
             const timer = document.createElement('div');
             timer.innerHTML = `
                 <div style="text-align:center; background: rgba(255,0,0,0.2); padding: 15px; border-radius: 10px; margin: 20px 0; border: 1px solid #FF0000;">
@@ -620,8 +595,7 @@
             `;
             document.querySelector('.final-offer').insertBefore(timer, document.querySelector('.final-offer .buttons'));
             
-            // Contador regressivo
-            let timeLeft = 30 * 60; // 30 minutos em segundos
+            let timeLeft = 30 * 60;
             const countdownElement = document.getElementById('countdown');
             
             const updateCountdown = () => {
@@ -641,10 +615,8 @@
             updateCountdown();
         });
 
-        // Funções para controlar o vídeo do YouTube
         let player;
         
-        // Esta função será chamada pela API do YouTube quando estiver pronta
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('videoPlayer', {
                 events: {
@@ -655,8 +627,6 @@
         }
         
         function onPlayerReady(event) {
-            // O vídeo já está configurado para autoplay no embed
-            // Podemos tentar garantir o som também
             setTimeout(function() {
                 event.target.unMute();
                 event.target.playVideo();
@@ -664,10 +634,8 @@
         }
         
         function onPlayerStateChange(event) {
-            // Pode adicionar lógica aqui se necessário
         }
         
-        // Funções de controle do vídeo
         function playVideo() {
             if (player && player.playVideo) {
                 player.playVideo();
@@ -686,7 +654,6 @@
             }
         }
         
-        // Carregar a API do YouTube
         const tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
         const firstScriptTag = document.getElementsByTagName('script')[0];
